@@ -3,8 +3,8 @@ import { UserService } from '@app/user/user.service';
 import { CreateUserDto } from '@app/user/dto/createUser.dto';
 import { UserResponseInterface } from '@app/user/types/userResponse.interface';
 import { LoginUserDto } from '@app/user/dto/login.dto';
-import { Request } from 'express';
-import { ExpressRequstInterface } from '@app/types/expressRequst.interface';
+import { User } from '@app/user/decarators/user.decorator';
+import { UserEntity } from '@app/user/user.entity';
 
 @Controller()
 export class UserController {
@@ -29,9 +29,11 @@ export class UserController {
   }
 
   @Get('user')
-  async currentUser(@Req() request: ExpressRequstInterface): Promise<UserResponseInterface> {
-    console.log(request.user)
-    /*console.log('request', request);*/
-    return this.userService.buildUserResponse(request.user)
+  async currentUser(
+    @User()user: UserEntity,
+    @User('id') currentUserId: number,
+  ): Promise<UserResponseInterface> {
+    console.log('userId', currentUserId);
+    return this.userService.buildUserResponse(user);
   }
 }
