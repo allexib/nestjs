@@ -25,9 +25,9 @@ export class ArticleController {
   }
 
   @Get()
-  async findall(@User('id') currentUserId:number,@Query()query:any):
-  Promise<ArticlesResponseInterface>{
-    return await this.articleService.findAll(currentUserId,query)
+  async findAll(@User('id') currentUserId: number, @Query()query: any):
+    Promise<ArticlesResponseInterface> {
+    return await this.articleService.findAll(currentUserId, query);
   }
 
   @Post()
